@@ -1,0 +1,23 @@
+import java.util.Scanner;
+
+public class bai_6_3 {
+    public static void main(String[] args) {
+        Scanner keyboard = new Scanner(System.in);
+
+        System.out.print("Enter triangle height: ");
+        int n = keyboard.nextInt();
+
+        StringBuilder triangle = new StringBuilder();
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n - i; j++) {
+                triangle.append(' ');
+            }
+            for (int k = 1; k <= (2 * i - 1); k++) {
+                triangle.append('*');
+            }
+            triangle.append('\n');
+        }
+
+        System.out.print(triangle);
+    }
+}

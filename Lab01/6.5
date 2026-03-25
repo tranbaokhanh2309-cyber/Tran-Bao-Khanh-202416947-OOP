@@ -1,0 +1,31 @@
+import java.util.Scanner;
+import java.util.Arrays;
+
+public class bai_6_5 {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // 1. Nhập kích thước và các phần tử mảng
+        System.out.print("Enter the number of elements: ");
+        int n = sc.nextInt();
+        double[] myArray = new double[n];
+
+        System.out.println("Enter the elements of the array:");
+        double sum = 0;
+        for (int i = 0; i < n; i++) {
+            myArray[i] = sc.nextDouble();
+            sum += myArray[i]; // Tính tổng luôn trong khi nhập
+        }
+
+        // 2. Sắp xếp mảng
+        Arrays.sort(myArray);
+
+        // 3. Tính trung bình cộng
+        double average = sum / n;
+
+        // 4. Hiển thị kết quả
+        System.out.println("Sorted array: " + Arrays.toString(myArray));
+        System.out.println("Sum: " + sum);
+        System.out.println("Average: " + average);
+    }
+}
