@@ -1,0 +1,49 @@
+ TRẢ LỜI CÂU HỎI BÀI TẬP (CHOOSING OPTION)
+
+Câu hỏi 1: Điều gì xảy ra nếu người dùng chọn "Cancel"?
+
+Trả lời:
+Khi người dùng nhấn nút "Cancel" (Hủy bỏ) hoặc đóng cửa sổ bằng dấu "X", phương thức `showConfirmDialog` sẽ trả về một giá trị nguyên tương ứng với hằng số `JOptionPane.CANCEL_OPTION` (thường có giá trị là **2**).
+
+Trong đoạn mã ban đầu:
+* Biến `option` sẽ nhận giá trị của `CANCEL_OPTION`.
+* Chương trình thực hiện kiểm tra điều kiện `(option == JOptionPane.YES_OPTION)`. Vì `CANCEL_OPTION` khác với `YES_OPTION`, biểu thức này sẽ trả về kết quả là **false**.
+* Do đó, hộp thoại thông báo tiếp theo (`showMessageDialog`) sẽ hiển thị dòng chữ: **"You've chosen: No"**.
+
+Lưu ý: Mặc dù ý định của người dùng là "Hủy bỏ", nhưng logic trong code hiện tại chỉ phân biệt giữa "Yes" và "Các trường hợp còn lại", nên cả "No" và "Cancel" đều cho ra kết quả hiển thị giống nhau.
+
+---
+
+Câu hỏi 2: Làm thế nào để tùy chỉnh các tùy chọn cho người dùng, ví dụ: chỉ có hai tùy chọn "Yes" và "No", HOẶC "I do" và "I don't"?
+
+Trả lời:
+Để tùy chỉnh các nút bấm trong hộp thoại, chúng ta có thể sử dụng các tham số khác nhau của lớp `JOptionPane`:
+
+Trường hợp A: Chỉ hiển thị hai lựa chọn "Yes" và "No"
+Chúng bản có thể chỉ định tham số `optionType` bằng hằng số `YES_NO_OPTION`. Điều này sẽ loại bỏ nút "Cancel" khỏi hộp thoại.
+
+Mã nguồn tham khảo:
+```java
+int option = JOptionPane.showConfirmDialog(null, 
+    "Do you want to change to the first class ticket?", 
+    "Select an Option", 
+    JOptionPane.YES_NO_OPTION);
+```
+
+Trường hợp B: Tùy chỉnh nội dung chữ trên nút (ví dụ: "I do" và "I don't")
+Để thay đổi hoàn toàn văn bản trên các nút, chúng ta cần sử dụng phương thức `showOptionDialog`. Phương thức này cho phép truyền vào một mảng các đối tượng (thường là String) để định nghĩa tên các nút.
+
+Mã nguồn tham khảo:
+```java
+// Định nghĩa mảng chứa nhãn của các nút bấm
+Object[] options = {"I do", "I don't"};
+
+int n = JOptionPane.showOptionDialog(null,
+    "Do you agree with the terms?",      // Nội dung thông báo
+    "Custom Confirmation",               // Tiêu đề
+    JOptionPane.YES_NO_OPTION,           // Kiểu tùy chọn
+    JOptionPane.QUESTION_MESSAGE,        // Kiểu biểu tượng (Icon)
+    null,                                // Biểu tượng tùy chỉnh (null để dùng mặc định)
+    options,                             // Mảng chứa nội dung các nút
+    options[0]);                         // Nút mặc định khi nhấn Enter
+```
