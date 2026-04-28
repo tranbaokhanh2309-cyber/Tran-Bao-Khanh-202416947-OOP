@@ -1,0 +1,35 @@
+Lab 03 - Basic Object-Oriented Techniques - Answers
+
+2. Working with method overloading
+Question: Try to add a method addDigitalVideoDisc which allows to pass an arbitrary number of arguments for dvd. Compare to an array parameter. What do you prefer in this case?
+Answer: Varargs (DigitalVideoDisc... dvds) are generally preferred for better API readability and flexibility. It allows passing zero or more individual objects or an array directly. It is syntactically cleaner for the caller compared to explicitly creating an array.
+
+3. Passing parameter
+Question: Is JAVA a Pass by Value or a Pass by Reference programming language?
+Answer: JAVA is always a Pass by Value programming language.
+
+Question: After the call of swap(jungleDVD, cinderellaDVD) why does the title of these two objects still remain?
+Answer: Because Java passes the reference by value. The swap method receives copies of the references pointing to the objects. Swapping these local copies does not affect the original references in the main method.
+
+Question: After the call of changeTitle(jungleDVD, cinderellaDVD.getTitle()) why is the title of the JungleDVD changed?
+Answer: Because the copy of the reference passed to the method still points to the same object in memory. Calling a setter (dvd.setTitle) modifies the actual object's internal state. However, reassigning the reference (dvd = new DigitalVideoDisc(...)) within the method only affects the local copy and is not visible to the caller.
+
+6. Open the Cart class
+Question: Suggestion: Write a toString() method for the DigitalVideoDisc class. What should be the return type of this method?
+Answer: The return type of the toString() method should be String.
+
+9. String, StringBuilder and StringBuffer
+Question: Why is using + operator in a loop for String concatenation inefficient?
+Answer: In Java, String is immutable. Using the + operator in a loop creates a new String object in every iteration, copying the entire contents of the previous string. This results in O(n^2) time complexity and generates a large amount of temporary garbage objects, which puts pressure on the Garbage Collector. Using StringBuilder or StringBuffer is much more efficient (O(n)) because they use a mutable internal buffer.
+
+Question: Performance results for ConcatenationInLoops (65536 iterations)?
+Answer: 
+- Using String with '+' operator: ~4500 ms
+- Using StringBuilder: ~5 ms
+Observation: StringBuilder is significantly faster because it modifies a mutable buffer rather than creating new string objects in each iteration.
+
+Question: Performance results for GarbageCreator vs NoGarbage (reading large files)?
+Answer: 
+- GarbageCreator (using '+'): Extremely slow/hangs on large files (e.g., 3.4MB) due to excessive object creation.
+- NoGarbage (using StringBuilder/StringBuffer): Processes the same file in a few milliseconds (e.g., 24 ms).
+Observation: Using StringBuilder is essential for performance when dealing with large-scale string manipulations or file processing.
