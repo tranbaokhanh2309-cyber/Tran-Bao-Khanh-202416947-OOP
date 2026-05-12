@@ -1,0 +1,30 @@
+ANSWERS FOR LAB 04: INHERITANCE AND POLYMORPHISM
+
+Section 9: Constructors of whole classes and parent classes
+Question: Which classes are aggregates of other classes? Checking all constructors of whole classes if they initialize for their parts?
+Answer:
+- 'Store' is an aggregate of 'Media' (contains a List<Media>).
+- 'Cart' is an aggregate of 'Media' (contains a List<Media>).
+- 'CompactDisc' is an aggregate of 'Track' (contains a List<Track>).
+All constructors for these 'whole' classes have been implemented to initialize their internal collections (ArrayLists) to ensure they are ready to store 'parts' upon instantiation.
+
+Section 10: Unique item in a list (equals method)
+Question: If the passing object is not an instance of Media, what happens?
+Answer: In the overridden equals(Object obj) method, we use the 'instanceof' operator. If the passing object is not an instance of Media, 'obj instanceof Media' will return false, and the method will return false, correctly indicating that the objects are not equal.
+
+Section 11: Polymorphism with toString() method
+Observation: When iterating through a List<Media> and calling m.toString(), the system correctly prints information according to the specific type of the object (DVD, CD, or Book).
+Explanation: This is an example of dynamic binding (polymorphism at behavior level). Even though the reference variable is of type 'Media', at runtime, the Java Virtual Machine (JVM) looks up the actual object type and executes its specific implementation of the toString() method.
+
+Section 12: Sort media in the cart (Comparable vs Comparator)
+Question 1: What class should implement the Comparable interface?
+Answer: The abstract 'Media' class should implement Comparable<Media> to define the natural ordering for all types of media.
+
+Question 2: How should you implement the compareTo() method to reflect the ordering?
+Answer: The implementation should first compare the titles using compareToIgnoreCase(). If the titles are different, it returns that result. If titles are equal, it compares the costs using Float.compare().
+
+Question 3: Can we have two ordering rules of the item (by title then cost and by cost then title) if we use this Comparable interface approach?
+Answer: No. A class can only have one 'natural' ordering defined by the compareTo() method of the Comparable interface. To support multiple sorting criteria (like title-then-cost AND cost-then-title), we must use the Comparator interface.
+
+Question 4: Suppose the DVDs has a different ordering rule from the other media types (title, then decreasing length, then cost). How would you modify your code to allow this?
+Answer: In the compareTo(Media other) method of the Media class, we would need to check if the current object (this) and the other object are both instances of DigitalVideoDisc. If so, we apply the DVD-specific sorting logic (title -> length -> cost). Otherwise, we fall back to the default Media sorting logic. However, using a specific Comparator for this case is a more clean and flexible approach.
