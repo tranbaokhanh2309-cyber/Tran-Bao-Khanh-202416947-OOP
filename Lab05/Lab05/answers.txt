@@ -1,0 +1,52 @@
+Q: Sự khác nhau giữa Swing và AWT
+
+1. Container cấp cao nhất (Top-level container):
+   - AWT sử dụng Frame làm container cấp cao nhất
+   - Swing sử dụng JFrame làm container cấp cao nhất
+   - Swing còn cung cấp JDialog (cho cửa sổ popup) và JApplet
+2. Tên các lớp thành phần:
+   - AWT: TextField, Label, Button, Panel, ...
+   - Swing: JTextField, JLabel, JButton, JPanel, ...
+     (Các thành phần của Swing được thêm tiền tố "J")
+3. Khác biệt chính trong cách bố trí giao diện:
+   - Trong AWT, các thành phần được thêm trực tiếp vào Frame
+   - Trong Swing, các thành phần (JComponents) phải được thêm vào content pane của container cấp cao nhất, lấy thông qua phương thức getContentPane(), Điều này là do các JComponent là các lightweight components
+
+
+2.2.3: ButtonListener
+Trường hợp nút DEL:
+  - Lấy nội dung hiện tại từ tfDisplay.
+  - Nếu chuỗi không rỗng, đặt lại nội dung bằng: substring(0, length - 1) (xóa ký tự cuối cùng)
+
+Trường hợp nút C:
+  - Đặt nội dung của tfDisplay thành chuỗi rỗng ""
+
+
+12: Chiến lược xử lý ngoại lệ (Exception Handling)
+Việc xử lý ngoại lệ được áp dụng ở các vị trí sau:
+1. Cart.addMedia(): Ném ngoại lệ LimitExceededException khi số lượng phần tử đạt tới giới hạn tối đa (MAX_NUMBERS_ORDERED = 20)
+2. DigitalVideoDisc.play(): Ném ngoại lệ PlayerException khi độ dài nhỏ hơn hoặc bằng 0
+3. Track.play(): Ném ngoại lệ PlayerException khi độ dài nhỏ hơn hoặc bằng 0
+4. CompactDisc.play(): Ném ngoại lệ PlayerException khi tổng độ dài nhỏ hơn hoặc bằng 0, đồng thời bắt (catch) ngoại lệ PlayerException từ phương thức play() của từng Track
+5. Aims.main(): Bao các lời gọi play() trong khối try-catch để hiển thị hộp thoại thông báo lỗi.
+
+
+13: PlayerException
+PlayerException kế thừa từ lớp java.lang.Exception.
+Ngoại lệ này được ném ra bất cứ khi nào một đối tượng Media không thể phát được do trạng thái không hợp lệ (ví dụ: độ dài nhỏ hơn hoặc bằng 0).
+Phương thức play() trong interface Playable hiện bao gồm: throws PlayerException
+
+
+15: Phương thức equals()
+Hai đối tượng Media được xem là bằng nhau nếu chúng có cùng tiêu đề (title).
+Phương thức này xử lý trường hợp:
+	- NullPointerException (kiểm tra null)
+	- Sử dụng instanceof để tránh rủi ro ClassCastException trước khi ép kiểu
+Cài đặt:
+  @Override
+  public boolean equals(Object obj) {
+      if (obj == null) return false;
+      if (!(obj instanceof Media)) return false;
+      Media other = (Media) obj;
+      return this.title != null && this.title.equals(other.title);
+  }
